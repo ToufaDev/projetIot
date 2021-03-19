@@ -1,5 +1,5 @@
 # name of your application
-APPLICATION = projet_iot
+APPLICATION = puit_de_donnee
 
 # If no BOARD is found in the environment, use this default:
 BOARD = iotlab-m3
