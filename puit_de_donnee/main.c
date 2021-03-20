@@ -14,7 +14,6 @@ int main(void)
         ssize_t res;
         if ((res = sock_udp_recv(&sock, buf, sizeof(buf), SOCK_NO_TIMEOUT,
                                  &remote)) >= 0) {
-            puts("Received a message");
             puts(buf);
         }
     }

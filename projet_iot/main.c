@@ -46,7 +46,7 @@ int main(void)
 
   lpsxxx_t sensor;
   char data[32];
-  int i, temp_abs;
+  int temp_abs;
   int16_t temp;
   int error = lpsxxx_init(&sensor, &lpsxxx_params[0]);
 
@@ -56,9 +56,9 @@ int main(void)
       return -1;
     }
   puts("starting experiment....\n");
-  for (i = 0; i < 10; i++)
+  while(1)
     {
-      xtimer_sleep(1);
+      xtimer_sleep(2);
       error = lpsxxx_read_temp(&sensor, &temp);
       if (error == LPSXXX_OK)
 	      { 
@@ -70,12 +70,11 @@ int main(void)
 	        puts("\n");
           sock_udp_ep_t remote = { .family = AF_INET6 };
           remote.port = 12345;
-          /* Ici on envoie en multicast à tous les nodes c'est pas ouf faut mettre l'addr ipv6 en dur du puit de donnée */
           ipv6_addr_set_all_nodes_multicast((ipv6_addr_t *)&remote.addr.ipv6, IPV6_ADDR_MCAST_SCP_LINK_LOCAL);
           if (sock_udp_send(&sock, data, 32, &remote) < 0)
             {
               puts("Error sending message");
-              sock_udp_close(&sock);z
+              sock_udp_close(&sock);
             return 1;
             }
 	      }
